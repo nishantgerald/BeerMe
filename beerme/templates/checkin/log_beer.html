@@ -27,7 +27,13 @@
   </datalist>
   </input>
   <label for="BREWERY_NAME">Brewery</label>
-  <input name="BREWERY_NAME" id="BREWERY_NAME" required>
+  <input list="BREWERY_NAME" id="brewery">
+  <datalist id="BREWERY_NAME">
+    {% for brewery in brewery_list %}
+    <option value="{{brewery}}"></option>
+    {% endfor %}
+  </datalist>
+  </input>
   <label for="BEER_RATING">Rating</label>
   <input name="BEER_RATING" id="BEER_RATING" required>
   <input type="image" src="../../static/beer.png" alt="Check-in Beer" width="48" height="48">
