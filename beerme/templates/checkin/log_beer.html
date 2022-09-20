@@ -6,10 +6,13 @@
 
 {% block content %}
 <form method="post">
+  <!-- BEER NAME -->
   <label for="BEER_NAME">Beer Name</label>
   <input name="BEER_NAME" id="beer" required>
+
+  <!-- BEER TYPE -->
   <label for="BEER_TYPE">Type of beer</label>
-  <input list="BEER_TYPE" id="type">
+  <input name="BEER_TYPE" list="BEER_TYPE" id="beer_type">
   <datalist id="BEER_TYPE">
     <option value="N/A"></option>
     <option value="Ale"></option>
@@ -26,8 +29,10 @@
     <option value="Sour Ale"></option>
   </datalist>
   </input>
+
+  <!-- BREWERY -->
   <label for="BREWERY_NAME">Brewery</label>
-  <input list="BREWERY_NAME" id="brewery">
+  <input name="BREWERY_NAME" list="BREWERY_NAME" id="brewery">
   <datalist id="BREWERY_NAME">
     {% for brewery in brewery_list %}
     <option value="{{brewery}}"></option>
@@ -35,14 +40,15 @@
   </datalist>
   </input>
 
+  <!-- RATING -->
   <label for="BEER_RATING">Rating</label>
   <script>
     function outputUpdate(vol) {
       document.querySelector('#rating').value = vol;
     }
   </script>
-  <input type="range" min="0" max="5" value="0" id="fader" step="0.1" oninput="outputUpdate(value)">
-  <output for="BEER_RATING" id="rating">0</output>
+  <input type="range" name="BEER_RATING" min="0" max="5" value="2.5" id="BEER_RATING" step="0.1" oninput="outputUpdate(value)" required>
+  <output for="BEER_RATING" id="rating">2.5</output>
   <br>
   <input type="image" src="../../static/beer.png" alt="Check-in Beer" width="48" height="48">
 
