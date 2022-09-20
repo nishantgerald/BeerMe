@@ -12,6 +12,10 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from beerme.db import get_db
+import pandas as pd
+
+brewery_df=pd.read_csv('beerme/data/brewery.csv', on_bad_lines='skip')[['name']]
+brewery_list = brewery_df.name.to_list()
 
 # DEFINING THE BLUEPRINT CALLED `AUTH`
 bp = Blueprint("checkin", __name__, url_prefix="/checkin")
@@ -43,8 +47,6 @@ def log_beer():
                 db.commit()
             except db.IntegrityError:
                 error = f"{BEER_NAME} has already been checked in before."
-            # else:
-            #     return redirect(url_for("auth.login"))
         if error is not None:
             flash(error)
-    return render_template("checkin/log_beer.html")
+    return render_template("checkin/log_beer.html", brewery_list=brewery_list)
