@@ -1,7 +1,7 @@
 **Everything below must be run from the root folder:**
 
 ### Update brewery data
-`source /beerme/data/update_data.sh`
+`source beerme/data/update_data.sh`
 
 ### Initialize SQLite3 Database
 `flask --app beerme init-db`
