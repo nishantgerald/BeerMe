@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Check in beer{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="BEER_NAME">Beer Name</label>
+    <input name="BEER_NAME" id="beer" required>
+    <label for="BEER_TYPE">Type of beer:</label>
+    <select name="BEER_TYPE" id="type">
+      <option value="na">N/A</option>
+      <option value="ale">Ale</option>
+      <option value="lager">Lager</option>
+      <option value="porter">Porter</option>
+      <option value="stout">Stout</option>
+      <option value="amber ale">Amber Ale</option>
+      <option value="blonde ale">Blonde Ale</option>
+      <option value="brown ale">Brown Ale</option>
+      <option value="pale ale">Pale Ale</option>
+      <option value="indian pale ale">Indian Pale Ale</option>
+      <option value="wheat">Wheat</option>
+      <option value="pilsner">Pilsner</option>
+      <option value="sour ale">Sour Ale</option>
+    </select>
+    <label for="BREWERY_NAME">Brewery</label>
+    <input name="BREWERY_NAME" id="BREWERY_NAME" required>
+    <label for="BEER_RATING">Rating</label>
+    <input name="BEER_RATING" id="BEER_RATING" required>
+    <input type="submit" value="Check In">
+  </form>
+{% endblock %}
