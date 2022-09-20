@@ -8,7 +8,7 @@
   <form method="post">
     <label for="BEER_NAME">Beer Name</label>
     <input name="BEER_NAME" id="beer" required>
-    <label for="BEER_TYPE">Type of beer:</label>
+    <label for="BEER_TYPE">Type of beer</label>
     <select name="BEER_TYPE" id="type">
       <option value="na">N/A</option>
       <option value="ale">Ale</option>
@@ -24,10 +24,11 @@
       <option value="pilsner">Pilsner</option>
       <option value="sour ale">Sour Ale</option>
     </select>
+    <br>
     <label for="BREWERY_NAME">Brewery</label>
     <input name="BREWERY_NAME" id="BREWERY_NAME" required>
     <label for="BEER_RATING">Rating</label>
     <input name="BEER_RATING" id="BEER_RATING" required>
-    <input type="submit" value="Check In">
+    <input type="image" src="../../static/beer.png" alt="Check-in Beer" width="48" height="48">
   </form>
 {% endblock %}
