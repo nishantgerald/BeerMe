@@ -2,12 +2,12 @@
 <title>{% block title %}{% endblock %} - BeerMe</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
-  <h1>BeerMe</h1>
+  <h1><a class="menu_bar" href="{{ url_for('checkin.log_beer') }}">BeerMe</a></h1>
   <ul>
     {% if g.user %}
     <li><span class="welcome_user_menu">Welcome {{ g.user['username'] }}!</span>
     <li><a class="menu_bar" href="{{ url_for('checkin.log_beer') }}">Log Beer</a>
-    <li><a class="menu_bar"href="{{ url_for('auth.logout') }}">Log Out</a>
+    <li><a class="menu_bar" href="{{ url_for('auth.logout') }}">Log Out</a>
       {% else %}
     <li><a class="menu_bar" href="{{ url_for('auth.register') }}">Register</a>
     <li><a class="menu_bar" href="{{ url_for('auth.login') }}">Log In</a>
