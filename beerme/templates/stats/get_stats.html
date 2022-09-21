@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Check in beer{% endblock %}</h1>
+{% endblock %}
+
+<!-- TABLE WITH LAST 5 BEERS THAT WERE CHECKED IN BY THE USER -->
+{% block content %}
+<h2> Last 5 Beers Checked in by {{ g.user['username'] }}</h2>
+<table class="last_five_beer_table">
+    <tr class="last_five_beer_table">
+        <th class="last_five_beer_table">Beer</th>
+        <th class="last_five_beer_table">Brewery</th>
+        <th class="last_five_beer_table">Date</th>
+    </tr>
+    <!-- ITERATING THROUGH EACH ROW OF DATAFRAME -->
+    {% for key,value in last_five_beers_df.iterrows() %}
+    {% set beer = value['beer'].title() %}
+    {% set brewery = value['brewery'].title() %}
+    {% set date = value['date'] %}
+    <!-- POPULATING ROW WITH DATAFRAME VALUES -->
+    <tr class="last_five_beer_table">
+        <td class="last_five_beer_table">{{beer}}</td>
+        <td class="last_five_beer_table">{{brewery}}</td>
+        <td class="last_five_beer_table">{{date}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
