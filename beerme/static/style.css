@@ -1,6 +1,7 @@
 html { font-family: sans-serif; background: #eee; padding: 1rem; }
 body { max-width: 960px; margin: 0 auto; background: white; border-radius: 20px}
 h1 { font-family: serif; color: #000000; margin: 1rem 0; }
+span.welcome_user_menu { color: #000000; font-weight: bold;}
 a.menu_bar { color: #377ba8; text-decoration: none; color: #000000}
 hr { border: none; border-top: 1px solid lightgray; }
 nav { background: #eedb02; display: flex; align-items: center; padding: 0 0.5rem; border-top-left-radius: 20px; border-top-right-radius: 20px}
