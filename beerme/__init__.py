@@ -30,5 +30,8 @@ def create_app(test_config=None):
 
     from . import checkin
     app.register_blueprint(checkin.bp)
+
+    from . import stats
+    app.register_blueprint(stats.bp)
     
     return app
