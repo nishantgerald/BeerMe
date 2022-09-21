@@ -18,7 +18,7 @@ brewery_df=pd.read_csv('beerme/data/brewery.csv', on_bad_lines='skip')[['name']]
 brewery_list = brewery_df.name.to_list()
 
 # DEFINING THE BLUEPRINT CALLED `AUTH`
-bp = Blueprint("checkin", __name__, url_prefix="/")
+bp = Blueprint("checkin", __name__, url_prefix="/checkin")
 
 @bp.route("/", methods=("GET", "POST"))
 @bp.route("/log_beer", methods=("GET", "POST"))
