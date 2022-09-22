@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Check in beer{% endblock %}</h1>
+  <h1>{% block title %}{{ g.user['username'] }}'s Stats{% endblock %}</h1>
 {% endblock %}
 
 <!-- TABLE WITH LAST 5 BEERS THAT WERE CHECKED IN BY THE USER -->
@@ -26,4 +26,14 @@
     </tr>
     {% endfor %}
 </table>
+
+<br>
+
+<h2> Distribution of {{ g.user['username'] }}'s Beer Types </h2>
+<img src="../../static/{{ beer_types_histogram }}" alt="Beer Type Distribution">
+
+<br>
+
+<h2> Distribution of Beer Ratings </h2>
+<img src="../../static/{{ beer_ratings_histogram }}" alt="Beer Rating Distribution">
 {% endblock %}
