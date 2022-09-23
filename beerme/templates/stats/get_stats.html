@@ -27,7 +27,9 @@
     {% endfor %}
 </table>
 
-<br>
+<div style="background-color: #eedb02;">
+<h3> {{ last_five_beers_df.beer.nunique() }} Unique Beers Checked-in </h3>
+</div>
 
 <h2> Distribution of {{ g.user['username'] }}'s Beer Types </h2>
 <img src="../../static/{{ beer_types_histogram }}" alt="Beer Type Distribution">
