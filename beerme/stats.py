@@ -67,6 +67,7 @@ def generate_beer_type_histogram(dataframe, IMAGE_NAME):
                             'static', f'{IMAGE_NAME}')
     plt.clf()
     plt.hist(dataframe.type, color='#eedb02', bins=20)
+    plt.xticks(rotation=45)
     plt.savefig(IMG_PATH)
 
 
