@@ -53,7 +53,7 @@ def get_stats():
     generate_beer_ratings_histogram(
         last_five_beers_df, BEER_RATINGS_HIST_IMAGE_NAME)
 
-    return render_template("stats/get_stats.html", last_five_beers_df=last_five_beers_df.head(5), beer_types_histogram=BEER_TYPES_HIST_IMAGE_NAME, beer_ratings_histogram=BEER_RATINGS_HIST_IMAGE_NAME)
+    return render_template("stats/get_stats.html", all_beers_df=last_five_beers_df,last_five_beers_df=last_five_beers_df.head(5), beer_types_histogram=BEER_TYPES_HIST_IMAGE_NAME, beer_ratings_histogram=BEER_RATINGS_HIST_IMAGE_NAME)
 
 
 def generate_beer_type_histogram(dataframe, IMAGE_NAME):
