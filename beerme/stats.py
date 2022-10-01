@@ -45,15 +45,19 @@ def get_stats():
             username = '{g.user['username']}'
         order by datetime(CHECKIN_DATE) desc
         ''', db)
+    top_three_beers=historical_beers_df.sort_values(by=["rating","date"], ascending=[False, False]).head(3)[['beer']]
+    bottom_three_beers=historical_beers_df.sort_values(by=["rating","date"], ascending=[True, True]).head(3)[['beer']]
+    print(top_three_beers,bottom_three_beers)
     plot_beer_types()
     plot_beer_ratings()
-    return render_template("stats/get_stats.html", historical_beers_df=historical_beers_df,last_five_beers_df=historical_beers_df.head(5))
+    return render_template("stats/get_stats.html", historical_beers_df=historical_beers_df, last_five_beers_df=historical_beers_df.head(5), top_three_beers=top_three_beers, bottom_three_beers=bottom_three_beers)
+
 
 @bp.route('/images/beer_types_hist.png')
 def plot_beer_types():
     fig, ax = create_blank_figure()
     db = get_db()
-    beer_types= pd.read_sql_query(
+    beer_types = pd.read_sql_query(
         f'''
         select
             beer_type as type
@@ -62,7 +66,8 @@ def plot_beer_types():
         where
             username = '{g.user['username']}'
         ''', db)
-    sns.histplot(beer_types.type, ax=ax, discrete=True,color='#eedb02', alpha=0.75)
+    sns.histplot(beer_types.type, ax=ax, discrete=True,
+                 color='#eedb02', alpha=0.75)
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
     ax.set_title('Distribution of Beer Types', fontsize=18)
     ax.set_xlabel("Type of Beer")
@@ -73,11 +78,12 @@ def plot_beer_types():
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
 
+
 @bp.route('/images/beer_ratings_hist.png')
 def plot_beer_ratings():
     fig, ax = create_blank_figure()
     db = get_db()
-    beer_ratings= pd.read_sql_query(
+    beer_ratings = pd.read_sql_query(
         f'''
         select
             beer_rating as rating
@@ -87,7 +93,8 @@ def plot_beer_ratings():
             username = '{g.user['username']}'
         ''', db)
     sns.set_style("whitegrid")
-    sns.histplot(beer_ratings.rating, ax=ax, binrange=(0,5), bins=20, color='#eedb02', alpha=0.75)
+    sns.histplot(beer_ratings.rating, ax=ax, binrange=(
+        0, 5), bins=20, color='#eedb02', alpha=0.75)
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
     ax.set_title('Distribution of Beer Ratings', fontsize=18)
     ax.set_xlabel("Beer Rating")
@@ -97,6 +104,7 @@ def plot_beer_ratings():
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
+
 
 def create_blank_figure():
     fig = Figure()
