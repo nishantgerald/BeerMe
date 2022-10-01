@@ -1,7 +1,4 @@
-import os
-import base64
 import io
-import functools
 from datetime import datetime
 from flask import (
     Blueprint,
@@ -48,7 +45,6 @@ def get_stats():
             username = '{g.user['username']}'
         order by datetime(CHECKIN_DATE) desc
         ''', db)
-    BEER_RATINGS_HIST_IMAGE_NAME = f"{g.user['username']}_beer_ratings_plot.png"
     plot_beer_types()
     plot_beer_ratings()
     return render_template("stats/get_stats.html", historical_beers_df=historical_beers_df,last_five_beers_df=historical_beers_df.head(5))
@@ -71,7 +67,7 @@ def plot_beer_types():
     ax.set_title('Distribution of Beer Types', fontname='Ribbon', fontsize=18)
     ax.set_xlabel("Type of Beer")
     ax.set_ylabel("Beer Count")
-    ax.tick_params(axis='x', rotation=45)
+    ax.tick_params(axis='x', rotation=90)
     ax.figure.tight_layout()
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
