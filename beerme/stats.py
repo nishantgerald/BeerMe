@@ -13,11 +13,15 @@ from flask import (
     session,
     url_for,
 )
-from werkzeug.security import check_password_hash, generate_password_hash
 from beerme.db import get_db
 from beerme.auth import login_required
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.ticker import MaxNLocator
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+from flask import Response
 plt.switch_backend('Agg')
 
 # DEFINING THE BLUEPRINT CALLED `stats`
@@ -30,7 +34,7 @@ bp = Blueprint("stats", __name__, url_prefix="/stats")
 @login_required
 def get_stats():
     db = get_db()
-    last_five_beers_df = pd.read_sql_query(
+    historical_beers_df = pd.read_sql_query(
         f'''
         select
             beer_name as beer,
@@ -44,42 +48,61 @@ def get_stats():
             username = '{g.user['username']}'
         order by datetime(CHECKIN_DATE) desc
         ''', db)
-
-    BEER_TYPES_HIST_IMAGE_NAME = f"{g.user['username']}_beer_types_plot.png"
-    generate_beer_type_histogram(
-        last_five_beers_df, BEER_TYPES_HIST_IMAGE_NAME)
-
     BEER_RATINGS_HIST_IMAGE_NAME = f"{g.user['username']}_beer_ratings_plot.png"
-    generate_beer_ratings_histogram(
-        last_five_beers_df, BEER_RATINGS_HIST_IMAGE_NAME)
+    plot_beer_types()
+    plot_beer_ratings()
+    return render_template("stats/get_stats.html", historical_beers_df=historical_beers_df,last_five_beers_df=historical_beers_df.head(5))
 
-    return render_template("stats/get_stats.html", all_beers_df=last_five_beers_df,last_five_beers_df=last_five_beers_df.head(5), beer_types_histogram=BEER_TYPES_HIST_IMAGE_NAME, beer_ratings_histogram=BEER_RATINGS_HIST_IMAGE_NAME)
+@bp.route('/images/beer_types_hist.png')
+def plot_beer_types():
+    fig, ax = create_blank_figure()
+    db = get_db()
+    beer_types= pd.read_sql_query(
+        f'''
+        select
+            beer_type as type
+        from
+            beers
+        where
+            username = '{g.user['username']}'
+        ''', db)
+    sns.histplot(beer_types.type, ax=ax, discrete=True,color='#eedb02', alpha=0.75)
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.set_title('Distribution of Beer Types', fontname='Ribbon', fontsize=18)
+    ax.set_xlabel("Type of Beer")
+    ax.set_ylabel("Beer Count")
+    ax.tick_params(axis='x', rotation=45)
+    ax.figure.tight_layout()
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
 
+@bp.route('/images/beer_ratings_hist.png')
+def plot_beer_ratings():
+    fig, ax = create_blank_figure()
+    db = get_db()
+    beer_ratings= pd.read_sql_query(
+        f'''
+        select
+            beer_rating as rating
+        from
+            beers
+        where
+            username = '{g.user['username']}'
+        ''', db)
+    sns.set_style("whitegrid")
+    sns.histplot(beer_ratings.rating, ax=ax, binrange=(0,5), bins=20, color='#eedb02', alpha=0.75)
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.set_title('Distribution of Beer Ratings', fontname='Ribbon', fontsize=18)
+    ax.set_xlabel("Beer Rating")
+    ax.set_ylabel("Beer Count")
+    ax.tick_params(axis='x', rotation=0)
+    ax.figure.tight_layout()
+    output = io.BytesIO()
+    FigureCanvas(fig).print_png(output)
+    return Response(output.getvalue(), mimetype='image/png')
 
-def generate_beer_type_histogram(dataframe, IMAGE_NAME):
-    # GENERATE BEER TYPE HISTOGRAM
-    try:
-        os.remove(IMAGE_NAME)
-    except:
-        pass
-    root_dir = os.path.dirname(os.getcwd())
-    IMG_PATH = os.path.join(root_dir, 'BeerMe', 'beerme',
-                            'static', f'{IMAGE_NAME}')
-    plt.clf()
-    plt.hist(dataframe.type, color='#eedb02', bins=20)
-    plt.xticks(rotation=45)
-    plt.savefig(IMG_PATH)
-
-
-def generate_beer_ratings_histogram(dataframe, IMAGE_NAME):
-    # GENERATE BEER TYPE HISTOGRAM
-    try:
-        os.remove(IMAGE_NAME)
-    except:
-        pass
-    root_dir = os.path.dirname(os.getcwd())
-    IMG_PATH = os.path.join(root_dir, 'BeerMe', 'beerme',
-                            'static', f'{IMAGE_NAME}')
-    plt.clf()
-    plt.hist(dataframe.rating, color='#54b8f9', bins=20)
-    plt.savefig(IMG_PATH)
+def create_blank_figure():
+    fig = Figure()
+    ax = fig.add_subplot(1, 1, 1)
+    return fig, ax
