@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}{{ g.user['username'] }}'s Stats{% endblock %}</h1>
+<h1>{% block title %}{{ g.user['username'] }}'s Stats{% endblock %}</h1>
 {% endblock %}
 
 <!-- TABLE WITH LAST 5 BEERS THAT WERE CHECKED IN BY THE USER -->
@@ -28,15 +28,75 @@
 </table>
 
 <br>
-<div class="beer-count">
-<h3 style="text-align: center;"> {{ historical_beers_df.beer.nunique() }} Unique Beers Checked-in </h3>
+
+<div class="row">
+    <div class="column"> </div>
+    <div class="column">
+        <div class="beer-count">
+            <h3 style="text-align: center;"> {{ historical_beers_df.beer.nunique() }} Unique Beers Checked-in </h3>
+        </div>
+    </div>
+    <div class="column"> </div>
 </div>
 
 <br>
-<!-- <h2> Distribution of Beer Types </h2> -->
-<img class="beer_stats" src="../stats/images/beer_types_hist.png"></img>
+
+<!-- FAVORITE AND WORST BEERS -->
+<div class="row">
+    <div class="column"> </div>
+    <div class="column"> </div>
+    <div class="column">
+        <!-- TOP BEERS -->
+        <div class="beer-count">
+            <h3 style="text-align: center;">Top 3 Beers</h3>
+            {% for key,value in top_three_beers.iterrows() %}
+            {% set beer = value['beer'].title() %}
+            <p style="text-align: center;">{{beer}}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="column"> </div>
+    <div class="column">
+        <!-- BOTTOM BEERS -->
+        <div class="beer-count">
+            <h3 style="text-align: center;">Bottom 3 Beers</h3>
+            {% for key,value in bottom_three_beers.iterrows() %}
+            {% set beer = value['beer'].title() %}
+            <p style="text-align: center;">{{beer}}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="column"> </div>
+    <div class="column"> </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="column"> </div>
+    <div class="column">
+        <!-- <h2> Distribution of Beer Types </h2> -->
+        <div class="frame">
+            <img class="beer_stats" src="../stats/images/beer_types_hist.png"></img>
+        </div>
+    </div>
+    <div class="column"> </div>
+</div>
+
+<br>
 
 <!-- <h2> Distribution of Beer Ratings </h2> -->
-<img class="beer_stats" src="../stats/images/beer_ratings_hist.png"></img>
+
+<div class="row">
+    <div class="column"> </div>
+    <div class="column">
+        <!-- <h2> Distribution of Beer Types </h2> -->
+        <div class="frame">
+            <img class="beer_stats" src="../stats/images/beer_ratings_hist.png"></img>
+        </div>
+    </div>
+    <div class="column"> </div>
+</div>
+
 
 {% endblock %}
