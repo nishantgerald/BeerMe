@@ -27,15 +27,16 @@
     {% endfor %}
 </table>
 
-<div style="background-color: #eedb02;">
-<h3> {{ all_beers_df.beer.nunique() }} Unique Beers Checked-in </h3>
+<br>
+<div class="beer-count">
+<h3 style="text-align: center;"> {{ historical_beers_df.beer.nunique() }} Unique Beers Checked-in </h3>
 </div>
 
-<h2> Distribution of {{ g.user['username'] }}'s Beer Types </h2>
-<img src="../../static/{{ beer_types_histogram }}" alt="Beer Type Distribution">
-
 <br>
+<!-- <h2> Distribution of Beer Types </h2> -->
+<img class="beer_stats" src="../stats/images/beer_types_hist.png"></img>
 
-<h2> Distribution of Beer Ratings </h2>
-<img src="../../static/{{ beer_ratings_histogram }}" alt="Beer Rating Distribution">
+<!-- <h2> Distribution of Beer Ratings </h2> -->
+<img class="beer_stats" src="../stats/images/beer_ratings_hist.png"></img>
+
 {% endblock %}
