@@ -2,3 +2,4 @@
 instance/
 *.DS_Store*
 *plot.png
+brewery.csv
