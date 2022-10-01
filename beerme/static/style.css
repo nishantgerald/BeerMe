@@ -39,6 +39,17 @@ div.beer-count {
     box-shadow: 3px 2px #4f4a0d;
 }
 
+div.beer-count:hover {
+    background-color: #d5c300;
+    width: 270px;
+    border-radius: 25px;
+    padding: 0.1em 0.1em 0.1em 0.1em;
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    border-width: 1px;
+    box-shadow: 6px 4px #4f4a0d;
+}
+
 hr {
     border: none;
     border-top: 1px solid lightgray;
@@ -195,5 +206,16 @@ tr.last_five_beer_table:nth-child(even) {
     margin: auto;
     padding: 10px 10px;
     border-radius: 25px;
-    box-shadow: 3px 2px #3e3a0a;
+    box-shadow: 3px 2px #000000;
+}
+
+.frame:hover {
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    border-width: 1px;
+    background-color: #d5c300;
+    margin: auto;
+    padding: 10px 10px;
+    border-radius: 25px;
+    box-shadow: 6px 4px #000000;
 }
