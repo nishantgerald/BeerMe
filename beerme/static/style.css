@@ -55,7 +55,7 @@ nav {
 
 img.beer_stats {
     width: 40em;
-
+    border-radius: 25px;
 }
 
 nav h1 {
@@ -177,4 +177,23 @@ th.last_five_beer_table {
 
 tr.last_five_beer_table:nth-child(even) {
     background-color: #d8e2ee;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+}
+
+.frame {
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    border-width: 1px;
+    background-color: #eeda0287;
+    margin: auto;
+    padding: 10px 10px;
+    border-radius: 25px;
+    box-shadow: 3px 2px #3e3a0a;
 }
