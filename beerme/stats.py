@@ -45,9 +45,10 @@ def get_stats():
             username = '{g.user['username']}'
         order by datetime(CHECKIN_DATE) desc
         ''', db)
-    top_three_beers=historical_beers_df.sort_values(by=["rating","date"], ascending=[False, False]).head(3)[['beer']]
-    bottom_three_beers=historical_beers_df.sort_values(by=["rating","date"], ascending=[True, True]).head(3)[['beer']]
-    print(top_three_beers,bottom_three_beers)
+    top_three_beers = historical_beers_df.sort_values(
+        by=["rating", "date"], ascending=[False, False]).head(3)[['beer']]
+    bottom_three_beers = historical_beers_df.sort_values(
+        by=["rating", "date"], ascending=[True, True]).head(3)[['beer']]
     plot_beer_types()
     plot_beer_ratings()
     return render_template("stats/get_stats.html", historical_beers_df=historical_beers_df, last_five_beers_df=historical_beers_df.head(5), top_three_beers=top_three_beers, bottom_three_beers=bottom_three_beers)
@@ -69,7 +70,8 @@ def plot_beer_types():
     sns.histplot(beer_types.type, ax=ax, discrete=True,
                  color='#eedb02', alpha=0.75)
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-    ax.set_title('Distribution of Beer Types', fontsize=18)
+    ax.set_title('Distribution of Beer Types', fontsize=18,
+                 fontweight="bold", fontfamily="Comic Sans MS")
     ax.set_xlabel("Type of Beer")
     ax.set_ylabel("Beer Count")
     ax.tick_params(axis='x', rotation=90)
@@ -96,7 +98,8 @@ def plot_beer_ratings():
     sns.histplot(beer_ratings.rating, ax=ax, binrange=(
         0, 5), bins=20, color='#eedb02', alpha=0.75)
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-    ax.set_title('Distribution of Beer Ratings', fontsize=18)
+    ax.set_title('Distribution of Beer Ratings', fontsize=18,
+                 fontweight="bold", fontfamily="Comic Sans MS")
     ax.set_xlabel("Beer Rating")
     ax.set_ylabel("Beer Count")
     ax.tick_params(axis='x', rotation=0)
