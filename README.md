@@ -30,5 +30,7 @@ And then rerun the database initialization function:
 * If it's your first time on the page, you will be asked to register.
 * If you are registered, go to the login page and enter your credentials.
 * Once logged in, you can check in your beers.
-* Once you are done logging your beer/s, feel free to hit logout to clear the session.
+* You can search previously logged beers on the `Search` page
+* To view stats on your logged beers, check our the `Stats` page
+* Once you are done, feel free to hit `Logout` to clear the session.
 * All user registations and logged beers will remain stored in the sqlite database as long as the database is untouched. However, ru-running the `init-db` function will reset everything.
