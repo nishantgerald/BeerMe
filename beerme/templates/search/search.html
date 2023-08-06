@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}{{ g.user['username'] }}'s Stats{% endblock %}</h1>
+{% endblock %}
+
+<!-- TABLE WITH LAST 5 BEERS THAT WERE CHECKED IN BY THE USER -->
+{% block content %}
+
+<!-- SEARCH BAR -->
+<h2> Search {{ g.user['username'] }}'s beers</h2>
+<form action="{{ url_for('search.get_search_results') }}" method="post">
+    <input type="text" name="search_term" placeholder="Search for a beer...">
+    <input type="submit" value="Search">
+</form>
+
+{% if search_results_df.empty %}
+    <p>No results found for "{{ request.form['search_term'] }}".</p>
+{% else %}
+{% endif %}
+
+<!-- RESULTS SECTION -->
+<table class="search_results_table">
+    <tr class="search_results_table">
+        <th class="search_results_table">Beer</th>
+        <th class="search_results_table">Brewery</th>
+        <th class="search_results_table">Type</th>
+        <th class="search_results_table">Rating</th>
+        <th class="search_results_table">Date</th>
+    </tr>
+    <!-- ITERATING THROUGH EACH ROW OF DATAFRAME -->
+    {% for key,value in search_results_df.iterrows() %}
+    {% set beer = value['beer'].title() %}
+    {% set brewery = value['brewery'].title() %}
+    {% set date = value['date'] %}
+    {% set rating = value['rating'] %}
+    {% set type = value['type'].title() %}
+    <!-- POPULATING ROW WITH DATAFRAME VALUES -->
+    <tr class="search_results_table">
+        <td class="search_results_table">{{beer}}</td>
+        <td class="search_results_table">{{brewery}}</td>
+        <td class="search_results_table">{{type}}</td>
+        <td class="search_results_table">{{rating|round(2)}}</td>
+        <td class="search_results_table">{{date}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

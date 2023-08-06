@@ -6,6 +6,7 @@
   <ul>
     {% if g.user %}
     <li><span class="welcome_user_menu">Welcome {{ g.user['username'] }}!</span>
+    <li><a class="menu_bar" href="{{ url_for('search.get_search_results') }}">Search</a>  
     <li><a class="menu_bar" href="{{ url_for('stats.get_stats') }}">Stats</a>
     <li><a class="menu_bar" href="{{ url_for('checkin.log_beer') }}">Log Beer</a>
     <li><a class="menu_bar" href="{{ url_for('auth.logout') }}">Log Out</a>

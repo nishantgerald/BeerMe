@@ -190,6 +190,23 @@ tr.last_five_beer_table:nth-child(even) {
     background-color: #d8e2ee;
 }
 
+table.search_results_table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td.search_results_table,
+th.search_results_table {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr.search_results_table:nth-child(even) {
+    background-color: #d8e2ee;
+}
+
 .row {
     display: flex;
 }
