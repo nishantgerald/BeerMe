@@ -1,5 +1,3 @@
-import io
-from datetime import datetime
 from flask import (
     Blueprint,
     flash,
@@ -13,13 +11,6 @@ from flask import (
 from beerme.db import get_db
 from beerme.auth import login_required
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from matplotlib.ticker import MaxNLocator
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-from flask import Response
-plt.switch_backend('Agg')
 
 # DEFINING THE BLUEPRINT CALLED `search`
 bp = Blueprint("search", __name__, url_prefix="/search")
